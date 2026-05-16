@@ -30,7 +30,7 @@ Covering REST APIs, authentication, databases, and everything in between.
 
 ## 📌 Features (Progress)
 
-- [ ] CRUD Posts
+- [✅] CRUD Posts
 - [ ] User Registration & Login
 - [ ] JWT Authentication
 - [ ] Like / Unlike Posts
