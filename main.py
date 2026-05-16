@@ -12,7 +12,7 @@ class Post(BaseModel): #This is a pydantic model to define schema
     content: str  #We can access the content by calling it
     published:bool = True
     rating:Optional[int] = None #Optional is import from typing 
-    #and it means that the rating can be an integer or it can be None,
+    #and it means that the rating can be an integer or it caf be None,
     # which is the default value if not provided
 
 my_posts = [{"title":"title of post 1","content":"content of post 1","id":1},
@@ -65,3 +65,14 @@ async def delete_post(id:int):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id {id} not found")   
     my_posts.pop(index)
     return Response(status_code=status.HTTP_204_NO_CONTENT) #This is to return a response with status code 204 when a post is deleted
+
+
+@app.put("/posts/{id}")
+async def update_post(id:int, post:Post):
+    index = find_index_post(id)
+    if index == None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id {id} not found")
+    post_dict = post.dict()
+    post_dict['id'] = id
+    my_posts[index] = post_dict
+    return{"data":post_dict}
